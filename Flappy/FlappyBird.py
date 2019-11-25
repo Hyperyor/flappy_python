@@ -76,14 +76,15 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.generate()
 
-        #le damos una velocidad aleatoria dentro de un rango
-        #self.speed = random.randint(1, 7)
-
     def update(self):
 
+        #mientras no salga de la pantalla
         if self.rect.centerx != 0:
+            #lo movemos a la izquierda
             self.rect.centerx -= self.speed
         else:
+            #cuando sale de la pantalla por la izquierda
+            #lo volvemos a generar
             self.generate()
 
     def generate(self):
@@ -117,11 +118,12 @@ def mostrar_puntuacion():
     texto_rect.topleft = [0, 0]
     pantalla.blit(texto, texto_rect)
 
+""" 
 def colisionEntreObstaculos(obs):
     lista = pygame.sprite.spritecollide(obs, listadoObstaculos, False)
     if lista:
         return True
-    return False
+    return False"""
 
 
 pygame.init()
@@ -164,7 +166,7 @@ while i < 3:
     listaMonedas.append(mon)
     i += 1
 
-while jugando:
+while jugando: #bucle del gameplay
     reloj.tick(60)
     eventos = pygame.event.get()
     pantalla.fill(color_blanco)
@@ -220,6 +222,7 @@ while jugando:
         for elemento in listaMonedas:
             pantalla.blit(elemento.image, elemento.rect)
             elemento.update()
+    #mostramos la puntuacion en la esquina superior izquierda de la pantalla
     mostrar_puntuacion()
     # pintamos al pajaro en la pantalla
     pantalla.blit(pajaro.image, pajaro.rect)
